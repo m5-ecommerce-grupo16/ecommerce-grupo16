@@ -7,6 +7,6 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     is_employee = models.BooleanField(default=False)
-    address = models.ForeignKey(
+    address = models.OneToOneField(
         "addresses.Address", on_delete=models.CASCADE, related_name="users"
     )
