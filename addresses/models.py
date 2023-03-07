@@ -6,4 +6,4 @@ class Address(models.Model):
     district = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
-    contry = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
