@@ -15,7 +15,6 @@ class ProductSerializer(serializers.ModelSerializer):
             "description",
             "category"
         ]
-        lookup_url_kwarg = 'product_id'
 
     def create(self, validated_data):
         return Product.objects.create(**validated_data)
