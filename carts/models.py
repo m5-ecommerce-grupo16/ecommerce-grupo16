@@ -5,13 +5,18 @@ class Cart(models.Model):
     user = models.ForeignKey(
         "users.User", on_delete=models.CASCADE, related_name="cart"
     )
-    cart_total = models.DecimalField(max_digits=8, decimal_places=2)
+    cart_total = models.DecimalField(max_digits=8, decimal_places=2, null=True)
     products = models.ManyToManyField(
-        "products.Product", through="Cart_Product", related_name="carts"
+        "products.Product",
+        through="Cart_Product",
+        related_name="carts",
     )
 
 
 class Cart_Product(models.Model):
-    product = models.ForeignKey("products.Product", on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        "products.Product",
+        on_delete=models.CASCADE,
+    )
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     quantity = models.IntegerField()

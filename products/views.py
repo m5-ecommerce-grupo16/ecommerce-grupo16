@@ -1,4 +1,8 @@
-from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
+from rest_framework.generics import (
+    CreateAPIView,
+    RetrieveUpdateDestroyAPIView,
+    ListAPIView,
+)
 from .models import Product
 from .serializer import ProductSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -14,6 +18,8 @@ class ProductView(CreateAPIView, ListAPIView):
     serializer_class = ProductSerializer
 
     def perform_create(self, serializer):
+        print("*" * 50)
+        print(self.request.user)
         return serializer.save(user_id=self.request.user.id)
 
 
@@ -25,7 +31,7 @@ class ProductDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = ProductSerializer
 
     def perform_update(self, serializer):
-        return serializer.save(id=self.kwargs['pk'])
+        return serializer.save(id=self.kwargs["pk"])
 
     def perform_destroy(self, instance):
         return instance.delete()
