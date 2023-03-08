@@ -29,7 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data: dict) -> User:
         if validated_data["is_superuser"] is True:
-            return User.objects.create_superuser(**validated_data, is_superuser=True)
+            return User.objects.create_superuser(**validated_data, is_employee=True)
         return User.objects.create_user(**validated_data)
 
     def update(self, instance: User, validated_data: dict) -> User:
