@@ -16,17 +16,11 @@ class CartView(ListCreateAPIView):
     serializer_class = CartSerializer
 
     def get_queryset(self):
-        cart_queryset = Cart.objects.filter(user_id=self.request.user.id)
-
-        if cart_queryset.count() == 0:
-            Cart.objects.create(user_id=self.request.user.id)
-            cart_queryset = Cart.objects.filter(user_id=self.request.user.id)
-
+        cart_queryset = Cart.objects.filter(id=self.request.user.cart_id)
         return cart_queryset
 
 
 class CartAddView(CreateAPIView):
-    queryset = Cart_Product.objects.all()
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, IsAuthenticatedOrReadOnly]
 
@@ -34,18 +28,10 @@ class CartAddView(CreateAPIView):
     serializer_class = CartSerializer
 
     def perform_create(self, serializer):
-        cart_queryset = Cart.objects.filter(user_id=self.request.user.id)
-
-        if cart_queryset.count() == 0:
-            Cart.objects.create(user_id=self.request.user.id)
-            cart_queryset = Cart.objects.filter(user_id=self.request.user.id)
-
-        cart_id = cart_queryset[0].id
-
         cart_product_exist = Cart_Product.objects.filter(
-            cart_id=cart_id, product_id=self.request.data["product"])
-
+            cart_id=self.request.user.cart_id, product_id=self.request.data['product'])
         if cart_product_exist.count() == 0:
-            serializer.save(cart_id=cart_id)
+            Cart_Product.objects.create(
+                cart_id=self.request.user.cart_id, product_id=self.request.data['product'], ammount=self.request.data['ammount'])
         else:
-            print("product exist")
+            cart_product_exist.update(ammount=self.request.data['ammount'])
