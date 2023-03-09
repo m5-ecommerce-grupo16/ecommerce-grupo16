@@ -5,7 +5,7 @@ from .models import Cart, Cart_Product
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
-        fields = ["id", "user_id", "cart_total", "products"]
+        fields = ["id", "cart_total", "products"]
         depth = 1
 
     def __str__(self):
@@ -15,8 +15,7 @@ class CartSerializer(serializers.ModelSerializer):
 class CartProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart_Product
-        fields = ["id", "product", "cart_id", "quantity"]
-        depth = 1
+        fields = ["id", "cart_id", "product", "ammount"]
 
     def __str__(self) -> str:
         return ""
