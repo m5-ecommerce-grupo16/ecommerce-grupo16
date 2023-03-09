@@ -6,14 +6,14 @@ from rest_framework.generics import (
 from .models import Product
 from .serializer import ProductSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from .permissions import IsOwnerOrSuperuser
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from .permissions import IsOwnerOrSuperuser, PermissionAdd
 from .serach import ProductGetView
 
 
 class ProductView(CreateAPIView, ProductGetView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated, PermissionAdd]
 
     def perform_create(self, serializer):
         return serializer.save(user_id=self.request.user.id)
