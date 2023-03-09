@@ -16,4 +16,4 @@ class Cart_Product(models.Model):
         on_delete=models.CASCADE,
     )
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    ammount = models.IntegerField()
+    ammount = models.IntegerField(default=1)
