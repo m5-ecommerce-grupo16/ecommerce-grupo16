@@ -23,15 +23,8 @@ class CartView(ListCreateAPIView):
 class CartAddView(CreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, IsAuthenticatedOrReadOnly]
-
+    queryset = Cart_Product.objects.all()
     serializer_class = CartProductSerializer
-    serializer_class = CartSerializer
 
     def perform_create(self, serializer):
-        cart_product_exist = Cart_Product.objects.filter(
-            cart_id=self.request.user.cart_id, product_id=self.request.data['product'])
-        if cart_product_exist.count() == 0:
-            Cart_Product.objects.create(
-                cart_id=self.request.user.cart_id, product_id=self.request.data['product'], ammount=self.request.data['ammount'])
-        else:
-            cart_product_exist.update(ammount=self.request.data['ammount'])
+        serializer.save(cart=self.request.user.cart)
