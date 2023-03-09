@@ -2,9 +2,6 @@ from django.db import models
 
 
 class Cart(models.Model):
-    user = models.ForeignKey(
-        "users.User", on_delete=models.CASCADE, related_name="cart"
-    )
     cart_total = models.DecimalField(max_digits=8, decimal_places=2, null=True)
     products = models.ManyToManyField(
         "products.Product",
@@ -19,4 +16,4 @@ class Cart_Product(models.Model):
         on_delete=models.CASCADE,
     )
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+    ammount = models.IntegerField()

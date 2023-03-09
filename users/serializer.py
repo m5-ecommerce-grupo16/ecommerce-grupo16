@@ -17,6 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
             "is_employee",
             "is_superuser",
             "address",
+            "cart"
         ]
         extra_kwargs = {
             "email": {
