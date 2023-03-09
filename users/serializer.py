@@ -27,6 +27,7 @@ class UserSerializer(serializers.ModelSerializer):
                 "required": True,
             },
             "password": {"write_only": True},
+            "cart": {"read_only": True},
         }
 
     def create(self, validated_data: dict) -> User:

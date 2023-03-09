@@ -10,6 +10,6 @@ class User(AbstractUser):
     address = models.ForeignKey(
         "addresses.Address", on_delete=models.CASCADE, related_name="users"
     )
-    cart = models.ForeignKey(
-        "carts.Cart", on_delete=models.CASCADE, related_name="users"
+    cart = models.OneToOneField(
+        "carts.Cart", on_delete=models.CASCADE, related_name="user"
     )
