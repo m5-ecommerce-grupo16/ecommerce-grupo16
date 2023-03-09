@@ -1,15 +1,20 @@
 from rest_framework import serializers
 from .models import Cart, Cart_Product
+from products.models import Product
+
+
+class ProductSummarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'price', 'category', 'description', 'quantity']
 
 
 class CartSerializer(serializers.ModelSerializer):
-    def cart_total(self):
-        return sum(item.product.price * item.amount for item in self.cart_product.all())
+    products = ProductSummarySerializer(many=True)
 
     class Meta:
         model = Cart
         fields = ["id", "cart_total", "products"]
-        depth = 1
 
     def __str__(self):
         return ""
