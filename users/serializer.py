@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
 from .models import User
+from carts.models import Cart
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -31,6 +32,10 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data: dict) -> User:
         if validated_data["is_superuser"] is True:
             return User.objects.create_superuser(**validated_data, is_employee=True)
+        import ipdb
+        ipdb.set_trace()
+        cart = Cart.objects.create()
+
         return User.objects.create_user(**validated_data)
 
     def update(self, instance: User, validated_data: dict) -> User:
