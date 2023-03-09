@@ -15,19 +15,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "description",
             "category"
         ]
-
-    def create(self, validated_data):
-        return Product.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        for key, value in validated_data.items():
-            setattr(instance, key, value)
-        instance.save()
-        return instance
-
-    def delete(self, instance):
-        instance.delete()
-        return instance
+        read_only_fields = ["user_id", "user"]
 
     def __str__(self):
         return ""

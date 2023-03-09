@@ -13,7 +13,7 @@ class Cart(models.Model):
 class Cart_Product(models.Model):
     product = models.ForeignKey(
         "products.Product",
-        on_delete=models.CASCADE,
+        on_delete=models.CASCADE
     )
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     ammount = models.IntegerField(default=1)
