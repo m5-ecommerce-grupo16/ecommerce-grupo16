@@ -43,6 +43,7 @@ class AddOrder(ListCreateAPIView):
 
         for cart_product in cart_products:
             product = cart_product.product
+            print(cart_product)
             quantity = cart_product.ammount
             if product.quantity >= quantity:
                 Order_Product.objects.create(order=order, product=product)
