@@ -13,9 +13,13 @@ class ProductSerializer(serializers.ModelSerializer):
             "price",
             "quantity",
             "description",
-            "category"
+            "category",
         ]
         read_only_fields = ["user_id", "user"]
 
-    def __str__(self):
-        return ""
+
+class SummaryProductsSerilizer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ["id", "name", "price", "description", "category"]
+        read_only_fields = ["name", "price", "description", "category"]
