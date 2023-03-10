@@ -12,7 +12,11 @@ class IsOwnerOrSuperuser(permissions.BasePermission):
 
 class PermissionAdd(permissions.BasePermission):
     def has_permission(self, request, view):
-        print(request.user)
-        if request.user.is_employee is False or request.user.is_superuser is False:
-            return False
-        return True
+        permission = True
+        if request.user.is_employee is False and request.user.is_superuser is False:
+            permission = False
+        elif request.user.is_superuser is True:
+            permission = True
+        elif request.user.is_employee is True:
+            permission = True
+        return permission

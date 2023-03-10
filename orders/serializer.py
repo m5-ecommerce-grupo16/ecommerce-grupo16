@@ -1,17 +1,19 @@
 from rest_framework import serializers
 from .models import Order, Order_Product
+from rest_framework.exceptions import ValidationError
 
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ["user", "order_total", "status", "date", "products"]
+        fields = ["user_id", "status", "date", "products"]
+        depth = 1
 
 
 class Order_ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order_Product
-        fields = ["product", "order", "quantity"]
+        fields = ["product_id", "order_id"]
 
     def __str__(self) -> str:
         return ""
