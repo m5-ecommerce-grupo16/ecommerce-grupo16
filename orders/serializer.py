@@ -13,7 +13,7 @@ class OrderSerializer(serializers.ModelSerializer):
 class Order_ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order_Product
-        fields = ["product_id", "order_id"]
+        fields = ["product_id", "order_id", "ammount"]
 
     def __str__(self) -> str:
         return ""
