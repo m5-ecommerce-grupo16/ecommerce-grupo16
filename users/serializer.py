@@ -17,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
             "is_employee",
             "is_superuser",
             "address",
-            "cart"
+            "cart",
         ]
         extra_kwargs = {
             "email": {
@@ -36,9 +36,11 @@ class UserSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
     def update(self, instance: User, validated_data: dict) -> User:
+        password = self.context["request"].data.get("password", None)
         for key, value in validated_data.items():
             setattr(instance, key, value)
-        instance.set_password(validated_data["password"])
+        if password is not None:
+            instance.set_password(validated_data["password"])
         instance.save()
 
         return instance

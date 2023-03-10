@@ -20,10 +20,14 @@ class OrderView(ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    def get_queryset(self):
+        orders = Order.objects.filter(user_id=self.request.user)
+        return orders
+
 
 class OrderDetailView(RetrieveUpdateDestroyAPIView):
-    authentication_classes = []
-    permission_classes = []
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 

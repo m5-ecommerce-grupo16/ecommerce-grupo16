@@ -13,7 +13,7 @@ from .serach import ProductGetView
 
 class ProductView(CreateAPIView, ProductGetView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, PermissionAdd]
+    permission_classes = [PermissionAdd]
 
     def perform_create(self, serializer):
         return serializer.save(user_id=self.request.user.id)
@@ -21,7 +21,7 @@ class ProductView(CreateAPIView, ProductGetView):
 
 class ProductDetailView(RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsOwnerOrSuperuser]
+    permission_classes = [PermissionAdd]
 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
