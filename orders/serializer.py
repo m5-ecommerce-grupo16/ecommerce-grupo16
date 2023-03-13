@@ -3,6 +3,9 @@ from .models import Order, Order_Product
 from products.serializer import SummaryProductsSerilizer
 from carts.models import Cart_Product
 from rest_framework.exceptions import APIException
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -10,6 +13,22 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ["user_id", "id", "status", "date", "products"]
         depth = 1
+
+    def update(self, instance, validated_data):
+        status = validated_data.pop("status")
+        instance.status = status
+        name = self.context["request"].user.first_name
+        template = f"Obrigado pela compra {name}, o status do seu pedido foi alterado para: {status}"
+        email = EmailMessage(
+            "Valeu pela compra",
+            template,
+            settings.EMAIL_HOST_USER,
+            [self.context["request"].user.email],
+        )
+
+        email.fail_silenylu = False
+        email.send()
+        return super().update(instance, validated_data)
 
 
 class ProductSeriallizer_Order(serializers.ModelSerializer):
