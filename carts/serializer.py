@@ -11,9 +11,6 @@ class CartSerializer(serializers.ModelSerializer):
 
         read_only_fields = ["cart_product_set"]
 
-    def __str__(self):
-        return ""
-
 
 class CartProductSerializer(serializers.ModelSerializer):
     product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
@@ -24,12 +21,10 @@ class CartProductSerializer(serializers.ModelSerializer):
         read_only_fields = ["cart"]
 
     def create(self, validated_data):
+        print(validated_data)
         ammount = validated_data.pop("ammount")
         product = validated_data.pop("product")
 
         return Cart_Product.objects.create(
             **validated_data, product=product, ammount=ammount
         )
-
-    def __str__(self) -> str:
-        return ""
