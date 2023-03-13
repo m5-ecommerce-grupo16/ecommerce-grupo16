@@ -14,6 +14,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         status = validated_data.pop("status")
+        instance.status = status
         name = self.context["request"].user.first_name
         template = f"Obrigado pela compra {name}, o status do seu pedido foi alterado para: {status}"
         email = EmailMessage(
