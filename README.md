@@ -4,13 +4,13 @@
  Projeto criado para um Ecommerce com níveis de usuários, produtos, carrinho, ordens, pedidos e estoque.
 
 ## 🛠 Tecnologias utilizadas
-    [Python](https://www.python.org/)
-    [Django](https://docs.djangoproject.com/en/4.1/)
-    [Django Rest FrameWork](https://www.django-rest-framework.org/)   
-    [DRF Spetacular](https://drf-spectacular.readthedocs.io/en/latest/)
-    [Dbeaver](https://dbeaver.io/)
-    [Render](https://render.com/)
-    [Black Formatter]()
+[Python](https://www.python.org/)
+[Django](https://docs.djangoproject.com/en/4.1/)
+[Django Rest FrameWork](https://www.django-rest-framework.org/)   
+[DRF Spetacular](https://drf-spectacular.readthedocs.io/en/latest/)
+[Dbeaver](https://dbeaver.io/)
+[Render](https://render.com/)
+[Black Formatter](https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html)
 
 ## 🚀 Como executar o projeto
 1. Crie seu ambiente virtual:
